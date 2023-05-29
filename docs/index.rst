@@ -10,7 +10,7 @@ Welcome to the ODEV tutorials!
    :maxdepth: 2
    :caption: Contents:
 
-
+   tute_ss
 
 Indices and tables
 ==================

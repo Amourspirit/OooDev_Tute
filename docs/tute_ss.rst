@@ -20,9 +20,9 @@ LibreOffice and Python to Work With Excel Spreadsheets
 
 Although we don’t often think of spreadsheets as programming tools, almost everyone uses them to organize information into two-dimensional data structures, perform calculations with formulas, and produce output as charts. In this tutorial, we’ll integrate Python into the popular spreadsheet application LibreOffice.
 
-Excel is a popular and powerful spreadsheet application for Windows. The OooDev package allows your Python programs to read and modify Excel spreadsheet files. For example, you might have the boring task of copying certain data from one spreadsheet and pasting it into another one. Or you might have to go through thousands of rows and pick out just a handful of them to make small edits based on some criteria. Or you might have to look through hundreds of spreadsheets of department budgets, searching for any that are in the red. These are exactly the sort of boring, mindless spreadsheet tasks that Python can do for you.
+Excel is a popular and powerful spreadsheet application for Windows. The |odev|_ package allows your Python programs to read and modify Excel spreadsheet files. For example, you might have the boring task of copying certain data from one spreadsheet and pasting it into another one. Or you might have to go through thousands of rows and pick out just a handful of them to make small edits based on some criteria. Or you might have to look through hundreds of spreadsheets of department budgets, searching for any that are in the red. These are exactly the sort of boring, mindless spreadsheet tasks that Python can do for you.
 
-Although Excel is proprietary software from Microsoft, there are free alternatives that run on Windows, macOS, and Linux. Both LibreOffice Calc and OpenOffice Calc work with Excel’s .xlsx file format for spreadsheets, which means the OooDev module can work on spreadsheets from these applications as well. You can download the software from https://www.libreoffice.org/ and https://www.openoffice.org/, respectively. Even if you already have Excel installed on your computer, you may find these programs easier to use. The screenshots in this chapter, however, are all from Excel 2010 on Windows 10.
+Although Excel is proprietary software from Microsoft, there are free alternatives that run on Windows, macOS, and Linux. Both LibreOffice Calc and OpenOffice Calc work with Excel’s .xlsx file format for spreadsheets, which means the |odev| module can work on spreadsheets from these applications as well. You can download the software from https://www.libreoffice.org/ and https://www.openoffice.org/, respectively. Even if you already have Excel installed on your computer, you may find these programs easier to use. The screenshots in this chapter, however, are all from Excel 2010 on Windows 10.
 
 .. _tute_ss_excel_docs:
 
@@ -35,10 +35,10 @@ Each sheet has columns (addressed by letters starting at A) and rows (addressed 
 
 .. _tute_ss_install_odev:
 
-Installing OooDev
------------------
+Installing |odev|
+--------------------
 
-Python does not come with OooDev, so you’ll have to install it. Follow the instructions in https://python-ooo-dev-tools.readthedocs.io/en/main/index.html#installation.
+Python does not come with |odev|_, so you’ll have to install it. Follow the instructions in https://python-ooo-dev-tools.readthedocs.io/en/main/index.html#installation.
 
 This is a minimal Windows install example for a virtual environment in the current folder:
 
@@ -91,7 +91,12 @@ Working with Python and LibreOffice
 
 Firstly, let us understand how python works with Office. An office instance is required before python can interact with the objects. When the python program is finished it is important to close any document and the Office instance or it will continue to run in the computer stopping other interfaces from starting it. This initialisation and finalisation code is required even if it is not shown in the examples.
 
-Once OooDev is installed, start up a python shell and enter the following code into the REPL:
+Once |odev|_ is installed, start up a python shell and enter the following code into the REPL:
+
+.. seealso::
+
+    - :external+ooodev:ref:`utils_lo`
+    - :external+ooodev:py:meth:`Lo.load_office() <ooodev.utils.lo.Lo.load_office>`
 
 .. tabs::
 
@@ -150,6 +155,11 @@ Note: Similar commands are used to open with GUI:
 
             .. group-tab:: None
 
+.. seealso::
+
+    - :external+ooodev:py:class:`ooodev.utils.lo.Lo`
+    - :external+ooodev:py:class:`ooodev.utils.gui.GUI`
+
 .. _tute_ss_reading_excel_docs:
 
 Reading Excel Documents
@@ -197,14 +207,14 @@ Sheet 1 in the example file should look like :numref:`tute_ss_tbl_sheet_data`
     | 7|10/04/2015 2:40  |Strawberries  |  98|
     +--+-----------------+--------------+----+
 
-Now that we have our example spreadsheet, let’s see how we can manipulate it with the OooDev package.
+Now that we have our example spreadsheet, let’s see how we can manipulate it with the |odev|_ package.
 
 .. _tute_ss_open_excel_doc_odev:
 
-Opening Excel Documents with OooDev
------------------------------------
+Opening Excel Documents with |odev|
+--------------------------------------
 
-Once you’ve installed the OooDev package, you’ll be able to use the Calc class. Enter the following into a new interactive shell:
+Once you’ve installed the |odev|_ package, you’ll be able to use the Calc class. Enter the following into a new interactive shell:
 
 .. tabs::
 
@@ -224,11 +234,11 @@ Once you’ve installed the OooDev package, you’ll be able to use the Calc cla
 
             .. group-tab:: None
 
-The Calc.open_doc() class takes in the filename and returns a value of the workbook data type.
+The :external+ooodev:py:meth:`Calc.open_doc() <ooodev.office.calc.Calc.open_doc>` class takes in the filename and returns a value of the workbook data type.
 This Workbook object represents the Excel file, a bit like how a File object represents an opened text file.
 
 Remember that example.xlsx needs to be in the current working directory in order for you to work with it.
-You can find out what the current working directory is by importing os and using os.getcwd(), and you can change the current working directory using os.chdir().
+You can find out what the current working directory is by importing os and using ``os.getcwd()``, and you can change the current working directory using ``os.chdir()``.
 
 .. _tute_ss_get_sheet_wb:
 
@@ -262,9 +272,10 @@ Enter the following into the interactive shell:
             .. group-tab:: None
 
 Each sheet is represented by a Worksheet object and you can use the Calc class to return it's properties.
-:py:meth:`~.Calc.get_sheet_names` will return all sheets in the workbook given as an argument.
-A particular Worksheet object is returned using :py:meth:`~.Calc.get_sheet` with the Workbook and sheet name string as arguments, and :py:meth:`~.Calc/get_sheet_name` with a Worksheet object argument returns teh Worksheet name.
-Finally, you can use :py:meth:`~.Calc.get_active_sheet` of a Workbook object to get the workbook’s active sheet, and from there the name.
+:external+ooodev:py:meth:`~ooodev.office.calc.Calc.get_sheet_names` will return all sheets in the workbook given as an argument.
+A particular Worksheet object is returned using :external+ooodev:py:meth:`~ooodev.office.calc.Calc.get_sheet` with the Workbook and sheet name string as arguments,
+and :external+ooodev:py:meth:`~ooodev.office.calc.Calc.get_sheet_name` with a Worksheet object argument returns teh Worksheet name.
+Finally, you can use :external+ooodev:py:meth:`~ooodev.office.calc.Calc.get_active_sheet` of a Workbook object to get the workbook’s active sheet, and from there the name.
 The active sheet is the sheet that is displayed when the workbook is opened on your computer.
 
 .. _tute_ss_get_sheet_cells:
@@ -312,16 +323,21 @@ Once you have a Worksheet object, you can access a Cell object using the Calc cl
 
             .. group-tab:: None
 
+.. seealso::
+
+    - :external+ooodev:py:meth:`Calc.get_sheet() <ooodev.office.calc.Calc.get_sheet>`
+    - :external+ooodev:py:meth:`Calc.get_val() <ooodev.office.calc.Calc.get_val>`
+
 The Cell object has a value property that contains, unsurprisingly, the value stored in that cell.
 There are many ways of referencing Cell objects, using the cell object, or the sheet with: cell address, cell name also have row, column, and coordinate properties that provide location information for the cell.
 
-OooDev returns dates as float so they need to be formatted to display the date in the required format.
+|odev|_ returns dates as float so they need to be formatted to display the date in the required format.
 
 Here, accessing the value property of our Cell object for cell ``B1`` gives us the string ``Apples``.
 The row property gives us the integer ``1``, the column property gives us ``B``, and the coordinate property gives us ``B1``.
 
 Specifying a column by letter can be tricky to program, especially because after column ``Z``, the columns start by using two letters: ``AA``, ``AB``, ``AC``, and so on.
-As an alternative, you can also get a cell using :py:meth:`.Calc.get_cell` method and passing integers for its row and column keyword arguments.
+As an alternative, you can also get a cell using :external+ooodev:py:meth:`~ooodev.office.calc.Calc.get_val` method and passing integers for its row and column keyword arguments.
 The first row or column integer is ``0``, not ``1``.
 Continue the interactive shell example by entering the following:
 
@@ -347,8 +363,9 @@ Continue the interactive shell example by entering the following:
 
             .. group-tab:: None
 
-As you can see, using :py:meth:`.Calc.get_cell` method and passing it ``column=1`` and ``row=0`` gets you a Cell object for cell ``B1``, just like specifying :py:meth:`~.Calc.get_cell` with 'B1' did.
-Then, using the :py:meth:`~.Calc.get_val` method and its keyword arguments, you can write a for loop to print the values of a series of cells.
+As you can see, using :external+ooodev:py:meth:`Calc.get_cell() <ooodev.office.calc.Calc.get_cell>` method and passing it ``column=1`` and ``row=0`` gets you a Cell object for cell ``B1``,
+just like specifying :external+ooodev:py:meth:`~ooodev.office.calc.Calc.get_cell` with 'B1' did.
+Then, using the :external+ooodev:py:meth:`Calc.get_val() <ooodev.office.calc.Calc.get_val>` method and its keyword arguments, you can write a for loop to print the values of a series of cells.
 
 Say you want to go down column ``B`` and print the value in every cell with an odd row number.
 By passing ``2`` for the ``range()`` function’s “step” parameter, you can get cells from every second row (in this case, all the odd-numbered rows).
@@ -385,8 +402,13 @@ Note that the max_column property is an integer rather than the letter that appe
 Converting Between Column Letters and Numbers
 ---------------------------------------------
 
-To convert from letters to numbers, use the :py:class:`.TableHelper` class with the :py:meth:`~.TableHelper.col_name_to_int` method.
-To convert from numbers to letters, use the :py:meth:`~.TableHelper.make_column_name` method.
+
+.. todo::
+
+    Replace calls to table helper with Calc methods.
+
+To convert from letters to numbers, use the :external+ooodev:py:class:`~ooodev.utils.table_helper.TableHelper` class with the :external+ooodev:py:meth:`TableHelper.col_name_to_int() <ooodev.utils.table_helper.TableHelper.col_name_to_int>` method.
+To convert from numbers to letters, use the :external+ooodev:py:meth:`TableHelper.make_column_name() <ooodev.utils.table_helper.TableHelper.make_column_name>` method.
 Enter the following into the interactive shell:
 
 .. tabs::
@@ -407,8 +429,12 @@ Enter the following into the interactive shell:
 
             .. group-tab:: None
 
+.. todo::
 
-After you import the :py:class:`.TableHelper` class from OooDev , you can use :py:meth:`~.Calc.make_column_name` and pass it an integer like ``27`` to figure out what the letter name of the ``27th`` column is.
+    Speaks of using table helper and then using Calc.make_column_name().
+    Replace calls to table helper with Calc methods.
+
+After you import the :external+ooodev:py:class:`~ooodev.utils.table_helper.TableHelper` class from |odev|_ , you can use :py:meth:`~.Calc.make_column_name` and pass it an integer like ``27`` to figure out what the letter name of the ``27th`` column is.
 The function :py:meth:`~.Calc.column_index_string` does the reverse: you pass it the letter name of a column, and it tells you what number that column is. You don’t need to have a workbook loaded to use these functions. If you want, you can load a workbook, get a Worksheet object, and use a Worksheet property like max_column to get an integer. Then, you can pass that integer to get_column_letter().
 
 .. _tute_ss_rows_cols_sheet:
@@ -451,7 +477,8 @@ Then you can loop over all the cells in the slice. Enter the following into the 
             .. group-tab:: None
 
 Here, we specify that we want the Cell objects in the rectangular area from ``A1`` to ``C3``, and we get a Generator object containing the Cell objects in that area.
-To help us visualize this Generator object, we can use ``tuple()`` on it to display its Cell objects in a tuple, alternatively use the :py:meth:`.Calc.print_array`.
+To help us visualize this Generator object, we can use ``tuple()`` on it to display its Cell objects in a tuple,
+alternatively use the :external+ooodev:py:meth:`Calc.print_array() <ooodev.office.calc.Calc.print_array>`.
 
 This tuple contains three tuples: one for each row, from the top of the desired area to the bottom.
 Each of these three inner tuples contains the Cell objects in one row of our desired area, from the leftmost cell to the right.
@@ -495,7 +522,7 @@ Workbooks, Sheets, Cells
 
 As a quick review, here’s a rundown of all the functions, methods, and data types involved in reading a cell out of a spreadsheet file:
 
-| Import the OooDev modules.
+| Import the |odev|_ modules.
 | Get a Workbook object.
 | Use the active or sheetnames properties.
 | Get a Worksheet object.
@@ -556,9 +583,9 @@ This means your code will need to do the following:
 
 .. cssclass:: ul-list
 
-    - Open and read the cells of an Excel document with OooDev modules
+    - Open and read the cells of an Excel document with |odev|_ modules
     - Calculate all the tract and population data and store it in a data structure
-    - Write the data structure to a text file with the ``.py`` extension using the pprint module
+    - Write the data structure to a text file with the ``.py`` extension using the ``pprint`` module
 
 .. _tute_ss_step_read_sheet_data:
 
@@ -603,7 +630,7 @@ Enter the following code into the REPL:
 
             .. group-tab:: None
 
-This code imports the OooDev modules, as well as the ``pprint`` module that you’ll use to print the final county data.
+This code imports the |odev|_ modules, as well as the ``pprint`` module that you’ll use to print the final county data.
 Then it opens the ``censuspopdata.xlsx`` file, and gets the sheet with the census data.
 
 Note that you’ve also created a variable named ``county_data``, which will contain the populations and number of tracts you calculate for each county.
@@ -618,7 +645,7 @@ Each row in the sheet holds the data for a single census tract.
 The columns are the tract number ``A``, the state abbreviation ``B``, the county name ``C``, and the population of the tract ``D``.
 
 Reading the spreadsheet data requires iterating through each row.
-Let's look at the original sample code below converted for OooDev but don't enter it into the REPL:
+Let's look at the original sample code below converted for |odev|_ but don't enter it into the REPL:
 
 .. tabs::
 
@@ -823,7 +850,7 @@ The ``readCensusExcel.py`` program was throwaway code: once you have its results
 Whenever you need the county data, you can just run ``import census2010``.
 
 Calculating this data by hand would have taken hours; this program did it in a few seconds.
-Using OooDev, you will have no trouble extracting information that is saved to an Excel spreadsheet and performing calculations on it.
+Using |odev|_, you will have no trouble extracting information that is saved to an Excel spreadsheet and performing calculations on it.
 The complete program is given below:
 
 .. tabs::
@@ -915,7 +942,7 @@ Such a program could do the following:
 Writing Spreadsheet Documents
 =============================
 
-OooDev also provides ways of writing data, meaning that your programs can create and edit spreadsheet files.
+|odev|_ also provides ways of writing data, meaning that your programs can create and edit spreadsheet files.
 With Python, it’s simple to create spreadsheets with thousands of rows of data.
 
 .. tabs::
@@ -974,9 +1001,10 @@ Enter the following into the interactive shell:
 
 
 The workbook will start off with a single sheet named Sheet.
-You can change the name of the sheet using the :py:meth:`.Calc.set_sheet_name` method which stores a new string in its title property.
+You can change the name of the sheet using the :external+ooodev:py:meth:`Calc.set_sheet_name() <ooodev.office.calc.Calc.set_sheet_name>` method which stores a new string in its title property.
 
-Any time you modify the Workbook object or its sheets and cells, the spreadsheet file will not be saved until you call the :py:meth:`.Calc.save_doc` workbook method.
+Any time you modify the Workbook object or its sheets and cells, the spreadsheet file will not be saved until you call the
+:external+ooodev:py:meth:`Calc.save_doc() <ooodev.office.calc.Calc.save_doc>` workbook method.
 Enter the following into the interactive shell (with ``example.xlsx`` in the current working directory):
 
 .. tabs::
@@ -1002,7 +1030,7 @@ Enter the following into the interactive shell (with ``example.xlsx`` in the cur
 
             .. group-tab:: None
 
-Here, we change the name of our sheet. To save our changes, we pass a filename as a string to the :py:meth:`.Calc.save_doc` method.
+Here, we change the name of our sheet. To save our changes, we pass a filename as a string to the :external+ooodev:py:meth:`Calc.save_doc() <ooodev.office.calc.Calc.save_doc>` method.
 Passing a different filename than the original, such as ``example_copy.xlsx``, saves the changes to a copy of the spreadsheet.
 
 Whenever you edit a spreadsheet you’ve loaded from a file, you should always save the new, edited spreadsheet to a different filename than the original.
@@ -1013,7 +1041,9 @@ That way, you’ll still have the original spreadsheet file to work with in case
 Creating and Removing Sheets
 ----------------------------
 
-Sheets can be added to and removed from a workbook with the :py:meth:`.Calc.insert_sheet` and :py:meth:`.Calc.remove_sheet` methods.
+Sheets can be added to and removed from a workbook with the
+:external+ooodev:py:meth:`Calc.insert_sheet() <ooodev.office.calc.Calc.insert_sheet>` and
+:external+ooodev:py:meth:`Calc.remove_sheet() <ooodev.office.calc.Calc.remove_sheet>` methods.
 Enter the following into the interactive shell:
 
 .. tabs::
@@ -1045,7 +1075,8 @@ Enter the following into the interactive shell:
 
             .. group-tab:: None
 
-The :py:meth:`.Calc.insert_sheet` method returns a new Worksheet object named ``SheetX``, which by default is set to be the last sheet in the workbook.
+The :external+ooodev:py:meth:`Calc.insert_sheet() <ooodev.office.calc.Calc.insert_sheet>` method returns a new Worksheet object named ``SheetX``,
+which by default is set to be the last sheet in the workbook.
 Optionally, the name and index of the new sheet can be specified with the name and index keyword arguments.
 
 Continue the previous example by entering the following:
@@ -1072,9 +1103,9 @@ Continue the previous example by entering the following:
             .. group-tab:: None
 
 
-You can use the :py:meth:`.Calc.remove_sheet` method to remove a sheet from a workbook, similarly to deleting a key-value pair from a dictionary.
+You can use the :external+ooodev:py:meth:`Calc.remove_sheet() <ooodev.office.calc.Calc.remove_sheet>` method to remove a sheet from a workbook, similarly to deleting a key-value pair from a dictionary.
 
-Remember to call the :py:meth:`.Calc.save_doc` method to save the changes after adding sheets to or removing sheets from the workbook.
+Remember to call the :external+ooodev:py:meth:`Calc.save_doc() <ooodev.office.calc.Calc.save_doc>` method to save the changes after adding sheets to or removing sheets from the workbook.
 
 .. _tute_ss_vals_cells:
 
@@ -1185,7 +1216,8 @@ You could write code like this:
 
             .. group-tab:: None
 
-Having the produce and updated price data hardcoded like this is a bit inelegant. If you needed to update the spreadsheet again with different prices or different produce, you would have to change a lot of the code. Every time you change code, you risk introducing bugs.
+Having the produce and updated price data hardcoded like this is a bit inelegant. If you needed to update the spreadsheet again with different prices or different produce,
+you would have to change a lot of the code. Every time you change code, you risk introducing bugs.
 
 A more flexible solution is to store the corrected price information in a dictionary and write your code to use this data structure.
 
@@ -1299,7 +1331,7 @@ In the produce spreadsheet, for example, your program could apply bold text to t
 Or perhaps you want to italicize every row with a cost per pound greater than ``$5``.
 Styling parts of a large spreadsheet by hand would be tedious, but your programs can do it instantly.
 
-To customize font styles in cells the OooDev Props class and two ``ooo.dyn.awt`` import from  |ooouno|_ classes, ``FontSlant`` and ``FontWeight``, must be imported.
+To customize font styles in cells the |odev|_ Props class and two ``ooo.dyn.awt`` import from  |ooouno|_ classes, ``FontSlant`` and ``FontWeight``, must be imported.
 
 Note that an alias has been used on the classes to make them easier to recognise.
 
@@ -1338,7 +1370,8 @@ Enter the following into the interactive shell:
 
             .. group-tab:: None
 
-In this example, :py:meth:`.Calc.get_cell` returns an XCell_ type with is used to reference the cell in :py:meth:`.Props.set` and set the properties directly.
+In this example, :external+ooodev:py:meth:`Calc.get_cell() <ooodev.office.calc.Calc.get_cell>` returns an XCell_ type with is used to reference the cell in
+:external+ooodev:py:meth:`Props.set() <ooodev.utils.props.Props.set>` and set the properties directly.
 ``CharPosture`` and ``CharWeight`` use the ``FontSlat`` and ``FontWeight`` classes respectively as previously imported.
 ``CharHeight`` is set directly. The effect is shown in the saved file.
 
@@ -1347,7 +1380,7 @@ In this example, :py:meth:`.Calc.get_cell` returns an XCell_ type with is used t
 Font Objects
 ============
 
-A number of OooDev classes have methods to change font properties.
+A number of |odev|_ classes have methods to change font properties.
 :numref:`tute_ss_tbl_props_for_font_objects` shows key properties for Font objects.
 
 ..
@@ -1420,8 +1453,9 @@ The cell value is then set which demonstrates the new style, and the process is 
 
             .. group-tab:: None
 
-Here, we store a style name in a ``STYLE_NAME`` constant, create a style with :py:meth:`.Calc.create_cell_style` method,
-use :py:meth:`.Props.set` method to set the style properties, then set the cell value with the :py:meth:`.Calc.set_val` method.
+Here, we store a style name in a ``STYLE_NAME`` constant, create a style with :external+ooodev:py:meth:`Calc.create_cell_style() <ooodev.office.calc.Calc.create_cell_style>` method,
+use :external+ooodev:py:meth:`Props.set() <ooodev.utils.props.Props.set>` method to set the style properties, then set the cell value with the
+:external+ooodev:py:meth:`Calc.set_val() <ooodev.office.calc.Calc.set_val>` method.
 We repeat the process with another style for a second cell.
 After you run this code, the styles of the ``A1`` and ``B3`` cells in the spreadsheet will be set to custom character styles, as shown in :numref:`tute_ss_fig_custom_font_styles`.
 
@@ -1451,7 +1485,7 @@ Formulas
 ========
 
 Spreadsheet formulas, which begin with an equal sign, can configure cells to contain values calculated from other cells.
-In this section, you’ll use :py:meth:`.Calc.set_val` to set a formula on a cell, just like any normal value.
+In this section, you’ll use :external+ooodev:py:meth:`Calc.set_val() <ooodev.office.calc.Calc.set_val>` to set a formula on a cell, just like any normal value.
 For example:
 
 .. tabs::
@@ -1507,7 +1541,7 @@ A formula is set just like any other text value in a cell. Enter the following i
 
             .. group-tab:: None
 
-The cells in ``A1`` and ``A2`` are set to ``200`` and ``300``, respectively with the :py:meth:`.Calc.set_val` method.
+The cells in ``A1`` and ``A2`` are set to ``200`` and ``300``, respectively with the :external+ooodev:py:meth:`Calc.set_val() <ooodev.office.calc.Calc.set_val>` method.
 The value in cell ``A3`` is set to a formula that sums the values in ``A1`` and ``A2``.
 When the spreadsheet is opened, ``A3`` will display its value as ``500``.
 
@@ -1765,7 +1799,7 @@ You can see this in :numref:`tute_ss_fig_freeze_a2`.
 Charts
 ======
 
-OooDev supports creating many charts including bar, line, scatter, and pie charts using the data in a sheet’s cells. To make a chart, you need to do the following:
+|odev|_ supports creating many charts including bar, line, scatter, and pie charts using the data in a sheet’s cells. To make a chart, you need to do the following:
 
 .. cssclass:: ul-list
 
@@ -1844,7 +1878,8 @@ This produces a spreadsheet that looks like Figure 13-10.
 
         :A spreadsheet with a chart added
 
-We’ve created a bar chart by using :py:meth:`.Calc.get_address` method to set a range to ``A1:A10``, then using :py:meth:`.Chart2.insert_chart` method to insert the chart at ``C5``.
+We’ve created a bar chart by using :py:meth:`.Calc.get_address` method to set a range to ``A1:A10``,
+then using :external+ooodev:py:meth:`Calc.insert_chart() <ooodev.office.calc.Calc.insert_chart>` method to insert the chart at ``C5``.
 The default insert a column chart with no row or column values and default colours.
 You can create many chart types including: line charts, scatter charts, and pie charts.
 
@@ -1859,7 +1894,7 @@ But once you have your spreadsheet loaded into Python, you can extract and manip
 You can also generate spreadsheets as output from your programs.
 So if colleagues need your text file or PDF of thousands of sales contacts transferred to a spreadsheet file, you won’t have to tediously copy and paste it all into spreadsheets.
 
-Equipped with OooDev module and some programming knowledge, you’ll find processing even the biggest spreadsheets a piece of cake.
+Equipped with |odev|_ module and some programming knowledge, you’ll find processing even the biggest spreadsheets a piece of cake.
 
 .. _tute_ss_practice_questions:
 
